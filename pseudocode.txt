@@ -1,0 +1,37 @@
+
+submitLogin():
+    IF !email & !password THEN
+        OUPUT ‘Please fill in all the fields’
+    ELSE IF password.length < 8 THEN
+        OUTPUT Password must have a minimum length of 8’
+    ELSE 
+        checkLogin()
+        clearFields()
+    END IF
+
+registerAccount(req, res):
+    IF email in database THEN
+        OUTPUT ‘Email already in use’
+    ELSE 
+        add email, hashed password to database
+    END IF
+
+  
+checkLogin(req, res):
+    IF email not in database THEN
+        OUTPUT ‘No account found with email’
+    ELSE IF password not same as database password THEN
+        OUTPUT ‘Incorrect password’
+    ELSE
+        res.send(‘Success’)
+    END IF
+
+databaseRequest(requestType, object):
+    IF requestType == 'create' THEN
+        database.create(object)
+    ELSE IF requestType == 'update' THEN
+        database.update(object)
+    ELSE IF THEN
+        database.delete(object.id)
+    END IF
+
